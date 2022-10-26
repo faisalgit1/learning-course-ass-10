@@ -14,7 +14,7 @@ const routes = createBrowserRouter([{
     children: [
         {
             path: '/',
-            loader: () => fetch('http://localhost:5000/course-categories'),
+            loader: () => fetch('https://learning-course-server-steel.vercel.app/course-categories'),
             element: <Home></Home>
         },
         {

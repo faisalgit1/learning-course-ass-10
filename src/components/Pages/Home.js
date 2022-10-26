@@ -1,11 +1,19 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import Category from './Shared/Category';
 
-const Home = () => {
+const Home = ({ img }) => {
     const allCategories = useLoaderData()
+    console.log(allCategories)
+
     return (
         <div>
-            <h1>total {allCategories.length}</h1>
+            {
+                allCategories.map(category => <Category
+                    key={category.id}
+                    category={category}
+                ></Category>)
+            }
         </div>
     );
 };
