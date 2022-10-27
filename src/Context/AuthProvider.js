@@ -8,7 +8,15 @@ export const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
 
     const auth = getAuth(app)
+    // Providers
+    const googleProvider = new GoogleAuthProvider();
 
+    // Google Sign in
+    const googleSignIn = () => {
+
+        return signInWithPopup(auth, googleProvider)
+
+    }
 
     // Sign up Method
     const signUp = (email, password) => {
@@ -16,7 +24,7 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
     const authInfo = {
-        signUp
+        googleSignIn, signUp
     }
     return (
         <div>
