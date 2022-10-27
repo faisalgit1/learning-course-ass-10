@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 
 
 const Register = () => {
-    const { signUp } = useContext(AuthContext)
-    const handleSubmit = e => {
+    const { signUp, setuserProfile } = useContext(AuthContext)
 
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+    const navigate = useNavigate()
+
+    const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -21,6 +25,11 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 form.reset()
+                handleUserProfile(name, photoURL)
+                setTimeout(() => {
+                    navigate(from, { replace: true })
+
+                }, 1000);
                 toast.success('Register Success')
             })
             .catch(error => {
@@ -28,7 +37,16 @@ const Register = () => {
 
             })
 
-
+        const handleUserProfile = (name, photoURL) => {
+            const profile = {
+                displayName: name,
+                photoURL: photoURL
+            }
+            console.log(profile);
+            setuserProfile(profile)
+                .then((result) => { console.log(result.user); })
+                .catch(error => console.log(error))
+        }
 
 
     }
