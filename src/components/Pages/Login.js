@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 ;
@@ -16,7 +17,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset()
-
+                toast.success('Logined SuccessFully')
             })
             .catch(error => {
 
