@@ -8,16 +8,7 @@ const Main = () => {
     return (
         <div>
             <Header></Header>
-            <div class="flex p-6">
-                <div class="flex-none  border
-                 border-slate-500 w-80  ...">
-                    <Categories></Categories>
-                </div>
-                <div class="grow border  border-slate-500  ">
-                    <Outlet></Outlet>
-                </div>
-
-            </div>
+            <Outlet></Outlet>
             <Footer></Footer>
         </div>
     );
