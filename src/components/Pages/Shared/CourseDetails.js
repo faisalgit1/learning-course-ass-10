@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
 const CourseDetails = () => {
-    const alldata = useLoaderData()
+    const alldata = useLoaderData();
+
     const { name, img, price, details } = alldata
     return (
         <div className='flex bg-white pb-36 dark:bg-slate-900 text-slate-900 dark:text-white  justify-center p-5 md:p-20'>
@@ -19,7 +20,7 @@ const CourseDetails = () => {
                     <p className='md:w-96 text-start w-80 text-gray-400'>{details}</p>
                     <div className="flex flex-col md:my-0 my-4  items-center md:flex-row mt-2 justify-between">
                         <p className='font-semibold'>Price: {price}</p>
-                        <Link to=''>
+                        <Link to='/buy-course'>
                             <button type="button" className="font-semibold py-2 px-4 my-4 rounded-md bg-sky-400 hover:bg-sky-700 text-gray-100">Buy Course</button>
                         </Link>
 

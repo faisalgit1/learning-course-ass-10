@@ -1,3 +1,4 @@
+import Courses from '../Courses';
 import Category from './Category'
 const Categories = () => {
 
@@ -8,9 +9,7 @@ const Categories = () => {
                 <Category></Category>
             </div>
             <div class="grow border  border-slate-500  ">
-                <h1>
-                    i
-                </h1>
+                <Courses></Courses>
             </div>
 
         </div>

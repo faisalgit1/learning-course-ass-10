@@ -45,7 +45,7 @@ const Register = () => {
                     navigate(frome, { replace: true })
 
                 }, 1000);
-                toast.success('Register SuccessFully')
+                toast.success('Register Success')
 
             })
             .catch(error => {
@@ -92,6 +92,9 @@ const Register = () => {
                         <div className="flex justify-end text-xs dark:text-gray-400">
                             <Link to="login" >Forgot Password?</Link>
                         </div>
+                    </div>
+                    <div>
+                        <p className="text-red-500">{error}</p>
                     </div>
                     <button className="block w-full  p-3 text-center rounded-sm dark:text-red-900 bg-violet-400 hover:bg-violet-700">Sign Up</button>
                 </form>
