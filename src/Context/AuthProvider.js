@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase-config'
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 
 export const AuthContext = createContext()
 
@@ -17,6 +17,13 @@ const AuthProvider = ({ children }) => {
 
     // Providers
     const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+
+    // Sign up 
+    const signUp = (email, password) => {
+        setLoading(true)
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
 
     // Google Sign in
     const googleSignIn = () => {
@@ -25,19 +32,25 @@ const AuthProvider = ({ children }) => {
 
     }
 
-    //Email Sign up 
-    const signUp = (email, password) => {
+    // Github sign in
+    const githubSignIn = () => {
         setLoading(true)
-        return createUserWithEmailAndPassword(auth, email, password)
+        return signInWithPopup(auth, githubProvider)
     }
-
-    // Email Sign In
+    // Email sign in
     const signIn = (email, password) => {
         setLoading(false)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    // On AUHT state Change
+
+    // User profie 
+    const setuserProfile = (profile) => {
+        setLoading(true)
+        return updateProfile(auth.currentUser, profile)
+    }
+
+    // On Auth state Change
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -56,9 +69,15 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
 
-
     const authInfo = {
-        user, signUp, signIn, googleSignIn, logOut
+        user,
+        signUp,
+        setuserProfile,
+        logOut,
+        googleSignIn,
+        githubSignIn,
+        signIn,
+        auth,
     }
     return (
         <div>

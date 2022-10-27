@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { AuthContext } from '../../Context/AuthProvider';
 
+
 const Header = () => {
     const [open, setOpen] = useState(false)
 
@@ -18,9 +19,9 @@ const Header = () => {
             .then(() => { })
             .catch(error => { console.log('error', error); })
     }
-    const [courses, setCourses] = useState([])
+    const [allCategories, setCourses] = useState([])
     useEffect(() => {
-        fetch(`https://learinin-hero-server.vercel.app/courses`)
+        fetch('https://learning-course-server-steel.vercel.app/course-categories')
             .then(res => res.json())
             .then(data => setCourses(data))
     }, [])
@@ -94,7 +95,7 @@ const Header = () => {
                         <div className='md:hidden block'>
                             <h2 className="text-3xl text-center  text-teal-500 font-bold ">Catagory</h2>
                             {
-                                courses.map(course => <Link key={course._id} to={`/courses/${course._id}`}><p className="font-semibold">{course.title}</p></Link>)
+                                allCategories.map(category => <Link key={category.id} to={`course-categories/${category.id}`}><p className="font-semibold">{category.name}</p></Link>)
                             }
                         </div>
                     </li>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Courses = ({ category }) => {
-    const { name, img, price, details } = category
+    const { name, img, price, details, id } = category
     return (
         <div>
             <div className="rounded-md border-teal-400 p-2 border shadow-md  ">
@@ -23,7 +23,7 @@ const Courses = ({ category }) => {
                     </div>
 
                     <Link to={`/courses/`}>
-                        <button type="button" className="flex items-center justify-center w-full p-3 bg-cyan-500 font-bold hover:bg-cyan-700  tracking-wide rounded-md ">Get Course</button>
+                        <Link to={`course-categories/${id}`} type="button" className="flex items-center justify-center w-full p-3 bg-cyan-500 font-bold hover:bg-cyan-700  tracking-wide rounded-md "> Course Details</Link>
 
                     </Link>
 

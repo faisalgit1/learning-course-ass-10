@@ -5,6 +5,7 @@ import Errorpage from '../components/ErrorPage/Errorpage';
 import Home from '../components/Pages/Home';
 import Login from '../components/Pages/Login'
 import Register from '../components/Pages/Register'
+import CourseDetails from '../components/Pages/Shared/CourseDetails';
 import Main from '../layout/Main';
 
 const routes = createBrowserRouter([{
@@ -28,6 +29,11 @@ const routes = createBrowserRouter([{
         {
             path: '/blog',
             element: <Blog></Blog>
+        },
+        {
+            path: 'course-categories/:id',
+            loader: ({ params }) => fetch(`https://learning-course-server-steel.vercel.app/course-categories/${params.id}`),
+            element: <CourseDetails></CourseDetails>
         }
     ]
 }])

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
@@ -6,12 +6,15 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 const Register = () => {
     const { signUp, setuserProfile } = useContext(AuthContext)
+    const [error, setError] = useState('')
 
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
+    const frome = location.state?.from?.pathname || '/';
+
     const navigate = useNavigate()
 
     const handleSubmit = e => {
+
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -20,35 +23,51 @@ const Register = () => {
         const password = form.password.value;
 
         console.log(name, photoURL, email, password);
-
+        if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
+            setError('Please provide at least two uppercase');
+            return;
+        }
+        if (password.length < 6) {
+            setError('Please should be at least 6 characters.');
+            return;
+        }
+        if (!/(?=.*[!@#$&*])/.test(password)) {
+            setError('Please add at least one special character');
+            return;
+        }
+        setError('');
         signUp(email, password)
             .then(result => {
                 const user = result.user;
                 form.reset()
                 handleUserProfile(name, photoURL)
                 setTimeout(() => {
-                    navigate(from, { replace: true })
+                    navigate(frome, { replace: true })
 
                 }, 1000);
-                toast.success('Register Success')
+                toast.success('Register SuccessFully')
+
             })
             .catch(error => {
                 console.log('error', error);
-
+                setError(error.message)
             })
 
-        const handleUserProfile = (name, photoURL) => {
-            const profile = {
-                displayName: name,
-                photoURL: photoURL
-            }
-            console.log(profile);
-            setuserProfile(profile)
-                .then((result) => { console.log(result.user); })
-                .catch(error => console.log(error))
+
+
+
+    }
+
+
+    const handleUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
         }
-
-
+        console.log(profile);
+        setuserProfile(profile)
+            .then((result) => { console.log(result.user); })
+            .catch(error => console.log(error))
     }
     return (
         <div className='flex justify-center  '>
